@@ -13,7 +13,40 @@
 <body>
 	<div class="container-fluid">
 		<div>
-			<h1>Welcome ENSPD Books Admin Control Panel</h1>
+			<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+				<a class="navbar-brand" th:href="@{/}">
+					<img th:src="@{/images/biblioth.jpg}" />
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="topNavbar">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/users}">Users</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/filieres}">Filières</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/types}">Types de Articles</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/articles}">Articles</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/etudiants}">Etudiants</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/emprunts}">Emprunts</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/settings}">Settings</a>
+						</li>
+					</ul>
+				</div>
+
+			</nav>
 		</div>
 
 		<div>
