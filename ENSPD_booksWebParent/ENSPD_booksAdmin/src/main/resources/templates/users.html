@@ -51,6 +51,11 @@
 
 		<div>
 			<h2>Gestion des Utilisateurs</h2>
+			<a th:href="@{/users/new}">Créer un nouveau utilisateur</a>
+		</div>
+
+		<div th:if="${message != null}" class="alert alert-success text-center">
+			[[${message}]]
 		</div>
 
 		<div>
