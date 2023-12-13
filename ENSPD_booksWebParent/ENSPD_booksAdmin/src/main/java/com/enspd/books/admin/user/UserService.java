@@ -78,7 +78,16 @@ public class UserService {
 		try {
 			return userRepo.findById(id).get();
 		} catch (NoSuchElementException ex) {
-			throw new UserNotFoundException("Impossible de trouver un utilisateur avec ID" + id);
+			throw new UserNotFoundException("Impossible de trouver un utilisateur avec ID " + id);
 		}
+	}
+
+	public void delete(Integer id) throws UserNotFoundException {
+		Long countById = userRepo.countById(id);
+		if (countById == null || countById == 0) {
+			throw new UserNotFoundException("Impossible de trouver un utilisateur avec ID " + id);
+		}
+
+		userRepo.deleteById(id);
 	}
 }
