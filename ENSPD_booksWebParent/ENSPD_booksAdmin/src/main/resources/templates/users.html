@@ -58,6 +58,10 @@
 			<a th:href="@{/users/new}">Créer un nouveau utilisateur</a>
 			&nbsp;|&nbsp;
 			<a th:href="@{/users/export/csv}">Exporter au format CSV</a>
+			&nbsp;|&nbsp;
+			<a th:href="@{/users/export/excel}">Export to Excel</a>
+			&nbsp;|&nbsp;
+			<a th:href="@{/users/export/pdf}">Export to PDF</a>
 		</div>
 
 		<div th:if="${message != null}" class="alert alert-success text-center">
