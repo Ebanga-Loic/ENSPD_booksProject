@@ -56,6 +56,8 @@
 		<div>
 			<h2>Gestion des Utilisateurs</h2>
 			<a th:href="@{/users/new}">Créer un nouveau utilisateur</a>
+			&nbsp;|&nbsp;
+			<a th:href="@{/users/export/csv}">Exporter au format CSV</a>
 		</div>
 
 		<div th:if="${message != null}" class="alert alert-success text-center">
