@@ -1,62 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
-
-	<title>Home - ENSPD Books Admin Control Panel</title>
-
-	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-</head>
+<head th:replace="fragments :: page_head('Home - ENSPD Books Admin Control Panel')" />
 
 <body>
 	<div class="container-fluid">
-		<div>
-			<nav class="navbar navbar-expand-lg bg-primary navbar-primary">
-				<a class="navbar-brand" th:href="@{/}">
-					<img th:src="@{/images/biblioth.jpg}" width="80px" />
-				</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="topNavbar">
-					<ul class="navbar-nav">
-						<li class="nav-item">
-							<a class="nav-link text-white font-weight-bold" th:href="@{/users}">Utilisateurs</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-white font-weight-bold" th:href="@{/filieres}">Filières</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-white font-weight-bold" th:href="@{/types}">Types de Articles</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-white font-weight-bold" th:href="@{/articles}">Articles</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-white font-weight-bold" th:href="@{/etudiants}">Etudiants</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-white font-weight-bold" th:href="@{/emprunts}">Emprunts</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-white font-weight-bold" th:href="@{/settings}">Settings</a>
-						</li>
-					</ul>
-				</div>
-
-			</nav>
-		</div>
-
+		<div th:replace="navigation :: menu"></div>
 		<div>
 			<h1>ENSPD Books Control Panel</h1>
 		</div>
 
-		<div class="text-center">
-			<p>ENSPD Books Control Panel - Copyright &copy; ENSPD Books</p>
-		</div>
+		<div th:replace="fragments :: footer"></div>
 	</div>
+
 </body>
 
 </html>
