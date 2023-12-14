@@ -1,4 +1,4 @@
-package com.enspd.books.admin.user;
+package com.enspd.books.admin.user.controller;
 
 import java.io.IOException;
 
@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enspd.books.admin.FileUploadUtil;
 import com.enspd.books.admin.security.BooksUserDetails;
+import com.enspd.books.admin.user.UserService;
 import com.enspd.books.common.entity.User;
 
 @Controller
@@ -29,7 +30,7 @@ public class AccountController {
 		User user = service.getByEmail(email);
 		model.addAttribute("user", user);
 
-		return "account_form";
+		return "users/account_form";
 
 	}
 
