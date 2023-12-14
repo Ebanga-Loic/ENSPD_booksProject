@@ -67,4 +67,12 @@ public class BooksUserDetails implements UserDetails {
 		return this.user.getFirstName() + " " + this.user.getLastName();
 	}
 
+	public void setFirstName(String firstName) {
+		this.user.setFirstName(firstName);
+	}
+
+	public void setLastName(String lastName) {
+		this.user.setLastName(lastName);
+	}
+
 }
