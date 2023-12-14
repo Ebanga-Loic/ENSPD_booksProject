@@ -15,4 +15,8 @@ public class FilieresService {
 	public List<Filieres> listAll() {
 		return (List<Filieres>) repo.findAll();
 	}
+
+	public Filieres save(Filieres filiere) {
+		return repo.save(filiere);
+	}
 }
