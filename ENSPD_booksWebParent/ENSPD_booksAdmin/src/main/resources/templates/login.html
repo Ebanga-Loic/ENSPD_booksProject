@@ -18,6 +18,15 @@
 		</div>
 
 		<form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto">
+
+			<div th:if="${param.error}">
+				<p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+			</div>
+
+			<div th:if="${param.logout}">
+				<p class="text-warning">Vous avez été déconnecté.</p>
+			</div>
+
 			<div class="border border-secondary rounded p-3">
 				<p>Accès au panneau de configuration ENSPD Books</p>
 				<p>
