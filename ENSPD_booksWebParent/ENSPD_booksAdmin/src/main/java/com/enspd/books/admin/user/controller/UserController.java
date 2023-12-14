@@ -1,4 +1,4 @@
-package com.enspd.books.admin.user;
+package com.enspd.books.admin.user.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enspd.books.admin.FileUploadUtil;
+import com.enspd.books.admin.user.UserNotFoundException;
+import com.enspd.books.admin.user.UserService;
 import com.enspd.books.admin.user.export.UserCsvExporter;
 import com.enspd.books.admin.user.export.UserExcelExporter;
 import com.enspd.books.admin.user.export.UserPdfExporter;
@@ -65,7 +67,7 @@ public class UserController {
 		model.addAttribute("reverseSortDir", reverseSortDir);
 		model.addAttribute("keyword", keyword);
 
-		return "users";
+		return "users/users";
 	}
 
 	@GetMapping("/users/new")
@@ -79,7 +81,7 @@ public class UserController {
 		model.addAttribute("listRoles", listRoles);
 		model.addAttribute("pageTitle", "Créer un nouveau utilisateur");
 
-		return "user_form";
+		return "users/user_form";
 	}
 
 	@PostMapping("/users/save")
@@ -122,7 +124,7 @@ public class UserController {
 			model.addAttribute("pageTitle", "Editer l'utilisateur (ID: " + id + ")");
 			model.addAttribute("listRoles", listRoles);
 
-			return "user_form";
+			return "users/user_form";
 		} catch (UserNotFoundException ex) {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
 			return "redirect:/users";

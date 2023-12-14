@@ -8,6 +8,9 @@
 		<div th:replace="navigation :: menu"></div>
 		<div>
 			<h1>ENSPD Books Control Panel</h1>
+			Bienvenue
+			<a th:href="@{/account}" sec:authentication="principal.fullname"></a>
+			<span sec:authentication="principal.authorities"></span>
 		</div>
 
 		<div th:replace="fragments :: footer"></div>
