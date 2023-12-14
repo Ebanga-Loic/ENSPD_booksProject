@@ -21,4 +21,12 @@ public class FilieresController {
 
 		return "filieres/filieres";
 	}
+
+	@GetMapping("/filieres/new")
+	public String newFilieres(Model model) {
+		model.addAttribute("filieres", new Filieres());
+		model.addAttribute("pageTitle", "Créer une nouvelle filieres");
+
+		return "filieres/filiere_form";
+	}
 }
