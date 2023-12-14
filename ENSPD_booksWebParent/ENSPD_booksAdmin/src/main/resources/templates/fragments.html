@@ -39,7 +39,7 @@
 	</div>
 
 	<div th:fragment="user_status" th:remove="tag">
-		<a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+		<a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-blue"
 			th:href="@{'/users/' + ${user.id} + '/enabled/false'}" title="Désactiver cet utilisateur"></a>
 
 		<a th:if="${user.enabled == false}" class="fas fa-circle fa-2x icon-dark"
@@ -47,15 +47,15 @@
 	</div>
 
 	<div th:fragment="user_actions" th:remove="tag">
-		<a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}"
+		<a class="fas fa-edit fa-2x icon-blue" th:href="@{'/users/edit/' + ${user.id}}"
 			title="Editer cet utilisateur"></a>
 		&nbsp;
-		<a class="fas fa-trash fa-2x icon-dark link-delete" th:href="@{'/users/delete/' + ${user.id}}"
+		<a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{'/users/delete/' + ${user.id}}"
 			th:userId="${user.id}" title="Supprimer cet utilisateur"></a>
 	</div>
 
 	<div th:fragment="filiere_status" th:remove="tag">
-		<a th:if="${filiere.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+		<a th:if="${filiere.enabled == true}" class="fas fa-check-circle fa-2x icon-blue"
 			th:href="@{'/filieres/' + ${filiere.id} + '/enabled/false'}" title="Désactiver cette filière"></a>
 
 		<a th:if="${filiere.enabled == false}" class="fas fa-circle fa-2x icon-dark"
@@ -63,10 +63,10 @@
 	</div>
 
 	<div th:fragment="filiere_actions" th:remove="tag">
-		<a class="fas fa-edit fa-2x icon-green" th:href="@{'/filieres/edit/' + ${filiere.id}}"
+		<a class="fas fa-edit fa-2x icon-blue" th:href="@{'/filieres/edit/' + ${filiere.id}}"
 			title="Editer cette filière"></a>
 		&nbsp;
-		<a class="fas fa-trash fa-2x icon-dark link-delete" th:href="@{'/filieres/delete/' + ${filiere.id}}"
+		<a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{'/filieres/delete/' + ${filiere.id}}"
 			th:catId="${filiere.id}" title="Supprimer cette filière"></a>
 	</div>
 

@@ -2,6 +2,7 @@ package com.enspd.books.admin.filieres;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ public class FilieresRepositoryTests {
 	private FilieresRepository repo;
 
 	@Test
-	public void testCreateRootFilieres() {
+	public void testCreateFilieres() {
 		Filieres filieres = new Filieres("Genie Automobile et Telecommunication");
 		Filieres savedFilieres = repo.save(filieres);
 
@@ -37,5 +38,16 @@ public class FilieresRepositoryTests {
 		Filieres savedFilieres = repo.save(filieres);
 
 		assertThat(savedFilieres.getId()).isGreaterThan(0);
+	}
+	
+	@Test
+	public void testListFilieres() {
+		List<Filieres> filieres = (List<Filieres>) repo.findAll();
+
+		for (Filieres filiere : filieres) {
+			if (filiere.getName() != null) {
+				System.out.println("--" +filiere.getName());
+			}
+		}
 	}
 }
