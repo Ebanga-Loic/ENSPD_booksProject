@@ -25,14 +25,14 @@ public class FilieresController {
 
 	@GetMapping("/filieres")
 	public String listAll(@Param("sortDir") String sortDir, Model model) {
-		
-		if (sortDir ==  null || sortDir.isEmpty()) {
+
+		if (sortDir == null || sortDir.isEmpty()) {
 			sortDir = "asc";
 		}
-		
+
 		List<Filieres> listFilieres = service.listAll(sortDir);
 		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
-		
+
 		model.addAttribute("listFilieres", listFilieres);
 		model.addAttribute("reverseSortDir", reverseSortDir);
 
@@ -62,10 +62,8 @@ public class FilieresController {
 	public String editFiliere(@PathVariable(name = "id") Integer id, Model model, RedirectAttributes ra) {
 		try {
 			Filieres filieres = service.get(id);
-			List<Filieres> listFilieres = service.listAll(sortDir);
 
 			model.addAttribute("filieres", filieres);
-			model.addAttribute("listFilieres", listFilieres);
 			model.addAttribute("pageTitle", "Editer la filiere (ID: " + id + ")");
 
 			return "filieres/filiere_form";

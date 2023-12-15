@@ -41,7 +41,7 @@ public class FilieresRepositoryTests {
 		assertThat(savedFilieres.getId()).isGreaterThan(0);
 	}
 	
-	@Test
+	@Test 
 	public void testListFilieres() {
 		List<Filieres> filieres = (List<Filieres>) repo.findFilieres(Sort.by("name").ascending());
 

@@ -14,7 +14,7 @@ public class FilieresService {
 	@Autowired
 	private FilieresRepository repo;
 
-	public List<Filieres> listAll(String sortDir) {
+	public List<Filieres> listAll(String sortDir) { 
 		Sort sort = Sort.by("name");
 
 		if (sortDir.equals("asc")) {
