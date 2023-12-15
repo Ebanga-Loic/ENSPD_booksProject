@@ -3,6 +3,8 @@ package com.enspd.books.admin.filieres;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -10,11 +12,12 @@ import org.springframework.stereotype.Service;
 import com.enspd.books.common.entity.Filieres;
 
 @Service
+@Transactional
 public class FilieresService {
 	@Autowired
 	private FilieresRepository repo;
 
-	public List<Filieres> listAll(String sortDir) { 
+	public List<Filieres> listAll(String sortDir) {
 		Sort sort = Sort.by("name");
 
 		if (sortDir.equals("asc")) {
@@ -65,5 +68,9 @@ public class FilieresService {
 		}
 
 		return "OK";
+	}
+
+	public void updateFiliereEnabledStatus(Integer id, boolean enabled) {
+		repo.updateEnabledStatus(id, enabled);
 	}
 }
