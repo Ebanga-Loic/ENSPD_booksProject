@@ -72,4 +72,15 @@ public class FilieresController {
 			return "redirect:/filieres";
 		}
 	}
+
+	@GetMapping("/filieres/{id}/enabled/{status}")
+	public String updateFilieresEnabledStatus(@PathVariable("id") Integer id, @PathVariable("status") boolean enabled,
+			RedirectAttributes redirectAttributes) {
+		service.updateFiliereEnabledStatus(id, enabled);
+		String status = enabled ? "activée" : "désactivée";
+		String message = "La filiere ID " + id + " a été " + status;
+		redirectAttributes.addFlashAttribute("message", message);
+
+		return "redirect:/filieres";
+	}
 }
