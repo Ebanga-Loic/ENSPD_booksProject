@@ -1,17 +1,12 @@
 package com.enspd.books.common.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "filieres")
@@ -26,9 +21,6 @@ public class Filieres {
 	@Column(length = 64, nullable = false, unique = true)
 	private String alias;
 
-	@Column(length = 128, nullable = false)
-	private String image;
-
 	private boolean enabled;
 
 	public Filieres() {
@@ -41,7 +33,12 @@ public class Filieres {
 	public Filieres(String name) {
 		this.name = name;
 		this.alias = name;
-		this.image = "default.png";
+	}
+
+	public Filieres(Integer id, String name, String alias) {
+		this.id = id;
+		this.name = name;
+		this.alias = alias;
 	}
 
 	public Integer getId() {
@@ -66,14 +63,6 @@ public class Filieres {
 
 	public void setAlias(String alias) {
 		this.alias = alias;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
 	}
 
 	public boolean isEnabled() {

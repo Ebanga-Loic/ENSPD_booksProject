@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,9 +24,17 @@ public class FilieresController {
 	private FilieresService service;
 
 	@GetMapping("/filieres")
-	public String listAll(Model model) {
-		List<Filieres> listFilieres = service.listAll();
+	public String listAll(@Param("sortDir") String sortDir, Model model) {
+		
+		if (sortDir ==  null || sortDir.isEmpty()) {
+			sortDir = "asc";
+		}
+		
+		List<Filieres> listFilieres = service.listAll(sortDir);
+		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+		
 		model.addAttribute("listFilieres", listFilieres);
+		model.addAttribute("reverseSortDir", reverseSortDir);
 
 		return "filieres/filieres";
 	}
@@ -38,16 +48,30 @@ public class FilieresController {
 	}
 
 	@PostMapping("/filieres/save")
-	public String saveCategory(Filieres filiere, @RequestParam("fileImage") MultipartFile multipartFile,
-			RedirectAttributes ra) throws IOException {
-		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-		filiere.setImage(fileName);
+	public String saveFiliere(Filieres filiere, RedirectAttributes ra) throws IOException {
 
 		Filieres savedFiliere = service.save(filiere);
-		String uploadDir = "../filiere-images/" + savedFiliere.getId();
-		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+		service.save(savedFiliere);
 
 		ra.addFlashAttribute("message", "La filiere a été enregistrée avec succès.");
 		return "redirect:/filieres";
+	}
+
+	@GetMapping("/filieres/edit/{id}")
+	public String editFiliere(@PathVariable(name = "id") Integer id, Model model, RedirectAttributes ra) {
+		try {
+			Filieres filieres = service.get(id);
+			List<Filieres> listFilieres = service.listAll(sortDir);
+
+			model.addAttribute("filieres", filieres);
+			model.addAttribute("listFilieres", listFilieres);
+			model.addAttribute("pageTitle", "Editer la filiere (ID: " + id + ")");
+
+			return "filieres/filiere_form";
+		} catch (FiliereNotFoundException ex) {
+			ra.addFlashAttribute("message", ex.getMessage());
+			return "redirect:/filieres";
+		}
 	}
 }
