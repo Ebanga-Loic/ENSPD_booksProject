@@ -38,7 +38,11 @@
 				<thead class="thead-dark">
 					<tr>
 						<th>ID</th>
-						<th>Filieres Name</th>
+						<th>
+							<a class="text-white" th:href="@{'/filieres?sortDir=' + ${reverseSortDir}}">Filieres
+								Name</a>
+							<span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+						</th>
 						<th>Alias</th>
 						<th>Enabled</th>
 						<th></th>
