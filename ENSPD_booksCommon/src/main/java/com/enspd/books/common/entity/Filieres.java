@@ -35,6 +35,12 @@ public class Filieres {
 		this.alias = name;
 	}
 
+	public Filieres(Integer id, String name, String alias) {
+		this.id = id;
+		this.name = name;
+		this.alias = alias;
+	}
+
 	public Integer getId() {
 		return id;
 	}

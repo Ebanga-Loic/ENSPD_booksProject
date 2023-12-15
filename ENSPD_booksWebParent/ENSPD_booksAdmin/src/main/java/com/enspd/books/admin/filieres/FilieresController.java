@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -23,9 +24,17 @@ public class FilieresController {
 	private FilieresService service;
 
 	@GetMapping("/filieres")
-	public String listAll(Model model) {
-		List<Filieres> listFilieres = service.listAll();
+	public String listAll(@Param("sortDir") String sortDir, Model model) {
+		
+		if (sortDir ==  null || sortDir.isEmpty()) {
+			sortDir = "asc";
+		}
+		
+		List<Filieres> listFilieres = service.listAll(sortDir);
+		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+		
 		model.addAttribute("listFilieres", listFilieres);
+		model.addAttribute("reverseSortDir", reverseSortDir);
 
 		return "filieres/filieres";
 	}
@@ -53,7 +62,7 @@ public class FilieresController {
 	public String editFiliere(@PathVariable(name = "id") Integer id, Model model, RedirectAttributes ra) {
 		try {
 			Filieres filieres = service.get(id);
-			List<Filieres> listFilieres = service.listAll();
+			List<Filieres> listFilieres = service.listAll(sortDir);
 
 			model.addAttribute("filieres", filieres);
 			model.addAttribute("listFilieres", listFilieres);
