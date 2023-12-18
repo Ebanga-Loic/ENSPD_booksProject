@@ -48,4 +48,15 @@ public class FileUploadUtil {
 			// System.out.println("Impossible de lister le répertoire : " + dirPath);
 		}
 	}
+
+	public static void removeDir(String dir) {
+		cleanDir(dir);
+
+		try {
+			Files.delete(Paths.get(dir));
+		} catch (IOException e) {
+			LOGGER.error("Impossible de supprimer le répertoire : " + dir);
+		}
+
+	}
 }

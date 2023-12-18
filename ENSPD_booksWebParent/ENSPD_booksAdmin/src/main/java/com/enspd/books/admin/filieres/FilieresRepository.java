@@ -13,6 +13,8 @@ public interface FilieresRepository extends PagingAndSortingRepository<Filieres,
 
 	@Query("SELECT f FROM Filieres f WHERE f.name is NOT NULL")
 	public List<Filieres> findFilieres(Sort sort);
+	
+	public Long countById(Integer id);
 
 	public Filieres findByName(String name);
 
