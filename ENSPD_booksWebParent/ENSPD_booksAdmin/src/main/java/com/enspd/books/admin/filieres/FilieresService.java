@@ -73,4 +73,13 @@ public class FilieresService {
 	public void updateFiliereEnabledStatus(Integer id, boolean enabled) {
 		repo.updateEnabledStatus(id, enabled);
 	}
+
+	public void delete(Integer id) throws FiliereNotFoundException {
+		Long countById = repo.countById(id);
+		if (countById == null || countById == 0) {
+			throw new FiliereNotFoundException("Aucune catégorie avec ID n'a été trouvée " + id);
+		}
+
+		repo.deleteById(id);
+	}
 }

@@ -83,4 +83,20 @@ public class FilieresController {
 
 		return "redirect:/filieres";
 	}
+
+	@GetMapping("/filieres/delete/{id}")
+	public String deleteFilieres(@PathVariable(name = "id") Integer id, Model model,
+			RedirectAttributes redirectAttributes) {
+		try {
+			service.delete(id);
+			String filiereDir = "../filiere-images/" + id;
+			FileUploadUtil.removeDir(filiereDir);
+
+			redirectAttributes.addFlashAttribute("message", "La filière ID " + id + " a été supprimée avec succès");
+		} catch (FiliereNotFoundException ex) {
+			redirectAttributes.addFlashAttribute("message", ex.getMessage());
+		}
+
+		return "redirect:/filieres";
+	}
 }
