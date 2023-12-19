@@ -27,6 +27,13 @@ public class Types {
 	@JoinTable(name = "types_filieres", joinColumns = @JoinColumn(name = "type_id"), inverseJoinColumns = @JoinColumn(name = "filiere_id"))
 	private Set<Filieres> filieres = new HashSet<>();
 
+	public Types() {
+	}
+
+	public Types(String name) {
+		this.name = name;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -49,6 +56,11 @@ public class Types {
 
 	public void setFilieres(Set<Filieres> filieres) {
 		this.filieres = filieres;
+	}
+
+	@Override
+	public String toString() {
+		return "Type livre [id=" + id + ", name=" + name + ", filieres=" + filieres + "]";
 	}
 
 }

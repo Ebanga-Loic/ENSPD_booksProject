@@ -73,4 +73,9 @@ public class Filieres {
 		this.enabled = enabled;
 	}
 
+	@Override
+	public String toString() {
+		return this.name;
+	}
+
 }
