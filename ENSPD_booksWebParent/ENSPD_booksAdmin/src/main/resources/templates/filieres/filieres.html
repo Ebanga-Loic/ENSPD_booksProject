@@ -14,35 +14,14 @@
 
 		</div>
 
-		<div th:if="${message != null}" class="alert alert-success text-center">
-			[[${message}]]
-		</div>
-
-		<div>
-			<form th:action="@{/filieres/page/1}" class="form-inline m-3">
-				Filtre:&nbsp;
-				<input type="search" name="keyword" th:value="${keyword}" class="form-control" required />
-				&nbsp;&nbsp;
-				<button type="submit" class="btn btn-primary">
-					<i class="fas fa-search"></i>
-				</button>
-				&nbsp;&nbsp;
-				<button type="button" class="btn btn-secondary" onclick="clearFilter()">
-					<i class="fas fa-eraser"></i>
-				</button>
-			</form>
-		</div>
+		<div th:replace="fragments :: search_form_and_message('/filieres/page/1')" />
 
 		<div class="full-details">
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
 				<thead class="thead-dark">
 					<tr>
-						<th>ID</th>
-						<th>
-							<a class="text-white" th:href="@{'/filieres?sortDir=' + ${reverseSortDir}}">Filieres
-								Name</a>
-							<span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-						</th>
+						<th class="hideable-column">ID</th>
+						<th th:replace="fragments :: column_link('/filieres','name', 'Filiere Name', 'none')" />
 						<th>Alias</th>
 						<th>Enabled</th>
 						<th></th>
@@ -54,15 +33,40 @@
 						<td>[[${filiere.name}]]</td>
 						<td>[[${filiere.alias}]]</td>
 						<td>
-							<div th:replace="fragments :: filiere_status" />
+							<div
+								th:replace="fragments :: status(${filiere.enabled}, 'filieres', '/filieres/' + ${filiere.id})" />
 						</td>
 						<td>
-							<div th:replace="fragments :: filiere_actions" />
+							<div th:replace="fragments :: edit('filieres', '/filieres/edit/' + ${filiere.id})" />
+							&nbsp;
+							<div
+								th:replace="fragments :: delete('filieres', ${filiere.id}, '/filieres/delete/' + ${filiere.id}, true)" />
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
+
+		<div class="less-details">
+			<div th:each="filiere : ${listFilieres}" class="row m-1">
+				<div class="col-8">
+					<div>[[${filiere.name}]]</div>
+					<div>[[${filiere.alias}]]</div>
+					<div class="mt-2">
+						<div
+							th:replace="fragments :: status(${filiere.enabled}, 'filieres', '/filieres/' + ${filiere.id})" />
+						&nbsp;
+						<div th:replace="fragments :: edit('filieres', '/filieres/edit/' + ${filiere.id})" />
+						&nbsp;
+						<div
+							th:replace="fragments :: delete('filieres', ${filiere.id}, '/filieres/delete/' + ${filiere.id}, true)" />
+					</div>
+				</div>
+				<div>&nbsp;</div>
+			</div>
+		</div>
+
+		<div th:replace="fragments :: pagination('/filieres', 'filieres de premier niveau')"></div>
 
 		<div th:replace="modal_fragments :: confirm_modal" />
 

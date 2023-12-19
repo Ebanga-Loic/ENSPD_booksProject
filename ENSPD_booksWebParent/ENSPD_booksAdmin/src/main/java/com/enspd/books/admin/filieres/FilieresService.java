@@ -6,6 +6,9 @@ import java.util.NoSuchElementException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +17,28 @@ import com.enspd.books.common.entity.Filieres;
 @Service
 @Transactional
 public class FilieresService {
+
+	public static final int FILIERES_PER_PAGE = 4;
+
 	@Autowired
 	private FilieresRepository repo;
 
-	public List<Filieres> listAll(String sortDir) {
-		Sort sort = Sort.by("name");
+	public List<Filieres> listAll() {
+		return (List<Filieres>) repo.findAll(Sort.by("name").ascending());
+	}
 
-		if (sortDir.equals("asc")) {
-			sort = sort.ascending();
-		} else if (sortDir.equals("desc")) {
-			sort = sort.descending();
+	public Page<Filieres> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
+		Sort sort = Sort.by(sortField);
+
+		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+
+		Pageable pageable = PageRequest.of(pageNum - 1, FILIERES_PER_PAGE, sort);
+
+		if (keyword != null) {
+			return repo.findAll(keyword, pageable);
 		}
 
-		return (List<Filieres>) repo.findFilieres(sort);
+		return repo.findAll(pageable);
 	}
 
 	public Filieres save(Filieres filiere) {
