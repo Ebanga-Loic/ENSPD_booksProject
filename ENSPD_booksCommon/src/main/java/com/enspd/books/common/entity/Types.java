@@ -34,6 +34,11 @@ public class Types {
 		this.name = name;
 	}
 
+	public Types(Integer id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
 	public Integer getId() {
 		return id;
 	}
