@@ -21,6 +21,9 @@ public class Book {
 	@Column(unique = true, length = 256, nullable = false)
 	private String name;
 
+	@Column(length = 256, nullable = false)
+	private String auteur;
+
 	@Column(length = 4096, nullable = false, name = "full_description")
 	private String fullDescription;
 
@@ -57,6 +60,14 @@ public class Book {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getAuteur() {
+		return auteur;
+	}
+
+	public void setAuteur(String auteur) {
+		this.auteur = auteur;
 	}
 
 	public String getFullDescription() {
@@ -113,6 +124,11 @@ public class Book {
 
 	public void setTypes(Types types) {
 		this.types = types;
+	}
+
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", name=" + name + "]";
 	}
 
 }
