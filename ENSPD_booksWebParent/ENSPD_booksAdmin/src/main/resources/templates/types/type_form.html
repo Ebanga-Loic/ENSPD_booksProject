@@ -22,7 +22,7 @@
 				</div>
 
 				<div class="form-group row">
-					<label class="col-sm-4 col-form-label">Sélectionnez une ou plusieurs filières:</label>
+					<label class="col-sm-4 col-form-label">Sélectionnez une ou plusieurs filière(s):</label>
 					<div class="col-sm-8">
 						<select class="form-control" th:field="*{filieres}" multiple required
 							style="resize: vertical; height: 200px">
@@ -35,9 +35,10 @@
 				</div>
 
 				<div class="form-group row">
-					<label class="col-sm-4 col-form-label">Filière choisie(s):</label>
+					<label class="col-sm-4 col-form-label">Filière(s) choisie(s):</label>
 					<div class="col-sm-8">
-
+						<div id="chosenFilieres">
+						</div>
 					</div>
 				</div>
 
@@ -55,6 +56,27 @@
 	</div>
 	<script type="text/javascript">
 		moduleURL = "[[@{/types}]]";
+
+		$(document).ready(function () {
+			dropdownFilieres = $("#filieres");
+			divChosenFilieres = $("#chosenFilieres");
+
+			dropdownFilieres.change(function () {
+				divChosenFilieres.empty();
+				showChosenFilieres();
+			});
+		});
+
+		function showChosenFilieres() {
+			dropdownFilieres.children("option:selected").each(function () {
+				selectedFiliere = $(this);
+				filiereId = selectedFiliere.val();
+				filiereName = selectedFiliere.text();
+
+				divChosenFilieres.append("<span class='badge badge-secondary m-1'>" + filiereName + "</span>");
+			});
+
+		}
 
 	</script>
 	<script th:src="@{/js/common_form.js}"></script>
