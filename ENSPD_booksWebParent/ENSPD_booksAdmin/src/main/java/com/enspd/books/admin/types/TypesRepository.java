@@ -6,4 +6,6 @@ import com.enspd.books.common.entity.Types;
 
 public interface TypesRepository extends PagingAndSortingRepository<Types, Integer> {
 
+	public Long countById(Integer id);
+
 }
