@@ -38,4 +38,20 @@ public class TypesService {
 
 		repo.deleteById(id);
 	}
+
+	public String checkUnique(Integer id, String name) {
+		boolean isCreatingNew = (id == null || id == 0);
+		Types typeByName = repo.findByName(name);
+
+		if (isCreatingNew) {
+			if (typeByName != null)
+				return "Duplicate";
+		} else {
+			if (typeByName != null && typeByName.getId() != id) {
+				return "Duplicate";
+			}
+		}
+
+		return "OK";
+	}
 }
