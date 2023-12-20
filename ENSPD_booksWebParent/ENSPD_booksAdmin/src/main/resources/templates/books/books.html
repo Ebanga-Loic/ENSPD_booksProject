@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: page_head('Books - ENSPD Books Admin')" />
+
+<body>
+	<div class="container-fluid">
+		<div th:replace="navigation :: menu"></div>
+		<div>
+			<h2>Gestion des Livres</h2>
+
+			<a th:href="@{/books/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
+			<a th:href="@{/books/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
+		</div>
+
+		<div th:replace="fragments :: search_form_and_message('/books/page/1')" />
+
+		<div class="full-details">
+			<table class="table table-bordered table-striped table-hover table-responsive-xl">
+				<thead class="thead-dark">
+					<tr>
+						<th>ID</th>
+						<th>Book Name</th>
+						<th>Auteur</th>
+						<th>Type book</th>
+						<th>Filiere</th>
+						<th>Enabled</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="book : ${listBooks}">
+						<td>[[${book.id}]]</td>
+						<td>[[${book.name}]]</td>
+						<td>[[${book.auteur}]]</td>
+						<td>[[${book.types.name}]]</td>
+						<td>[[${book.filieres.name}]]</td>
+						<td>
+							<div th:replace="fragments :: status(${book.enabled}, 'book', '/books/' + ${book.id})" />
+						</td>
+						<td>
+							<a class="fas fa-file-alt fa-2x icon-green" th:href="@{'/books/detail/' + ${book.id}}"
+								title="Voir les détails du livre"></a>
+							&nbsp;
+							<div th:replace="fragments :: edit('book', '/books/edit/' + ${book.id})" />
+							&nbsp;
+							<div
+								th:replace="fragments :: delete('book', ${book.id}, '/books/delete/' + ${book.id}, true)" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div th:replace="modal_fragments :: confirm_modal" />
+
+		<div th:replace="fragments :: footer"></div>
+
+	</div>
+	<script th:src="@{/js/common_list.js}"></script>
+	<script type="text/javascript">
+		moduleURL = "[[@{/books}]]";
+
+		$(document).ready(function () {
+			$(".link-delete").on("click", function (e) {
+				e.preventDefault();
+				showDeleteConfirmModal($(this), 'book');
+			});
+		});
+	</script>
+</body>
+
+</html>
