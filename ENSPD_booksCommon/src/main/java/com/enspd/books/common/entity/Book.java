@@ -40,11 +40,11 @@ public class Book {
 
 	@ManyToOne
 	@JoinColumn(name = "filiere_id")
-	private Filieres filiere;
+	private Filieres filieres;
 
 	@ManyToOne
 	@JoinColumn(name = "type_id")
-	private Types type;
+	private Types types;
 
 	public Integer getId() {
 		return id;
@@ -111,19 +111,19 @@ public class Book {
 	}
 
 	public Filieres getFilieres() {
-		return filiere;
+		return filieres;
 	}
 
-	public void setFilieres(Filieres filiere) {
-		this.filiere = filiere;
+	public void setFilieres(Filieres filieres) {
+		this.filieres = filieres;
 	}
 
 	public Types getTypes() {
-		return type;
+		return types;
 	}
 
-	public void setTypes(Types type) {
-		this.type = type;
+	public void setTypes(Types types) {
+		this.types = types;
 	}
 
 	@Override

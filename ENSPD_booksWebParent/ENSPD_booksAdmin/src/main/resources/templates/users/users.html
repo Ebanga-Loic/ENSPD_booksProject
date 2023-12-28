@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: page_head('Users - ENSPD Books Admin Control Panel')" />
+<head th:replace="fragments :: page_head('Users - ENSPD Books Admin Control Panel', 'none')" />
 
 <body>
 	<div class="container-fluid">
@@ -96,22 +96,16 @@
 		<div th:replace="fragments :: footer"></div>
 	</div>
 
+	<script th:src="@{/js/common_list.js}"></script>
 	<script type="text/javascript">
+		moduleURL = "[[@{/users}]]";
+
 		$(document).ready(function () {
 			$(".link-delete").on("click", function (e) {
 				e.preventDefault();
-				link = $(this);
-				//alert($(this).attr("href"));
-				userId = link.attr("userId");
-				$("#yesButton").attr("href", link.attr("href"));
-				$("#confirmText").text("Etes-vous sûr de vouloir supprimer cet identifiant utilisateur ID " + userId + "?");
-				$("#confirmModal").modal();
+				showDeleteConfirmModal($(this), 'utilisateur');
 			});
 		});
-
-		function clearFilter() {
-			window.location = "[[@{/users}]]";
-		}
 	</script>
 
 </body>

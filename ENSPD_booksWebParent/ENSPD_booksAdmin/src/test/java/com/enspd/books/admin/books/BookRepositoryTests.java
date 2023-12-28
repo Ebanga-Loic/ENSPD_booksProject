@@ -30,14 +30,14 @@ public class BookRepositoryTests {
 
 	@Test
 	public void testCreateProduct() {
-		Types types = entityManager.find(Types.class, 3);
-		Filieres filieres = entityManager.find(Filieres.class, 5);
+		Types types = entityManager.find(Types.class, 1);
+		Filieres filieres = entityManager.find(Filieres.class, 4);
 
 		Book book = new Book();
-		book.setName("Introduction to Algorithms");
-		book.setAuteur("Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein");
+		book.setName("The Pragmatic Programmer: Your Journey to Mastery");
+		book.setAuteur("Dave Thomas et Andy Hunt");
 		book.setFullDescription(
-				"Un livre classique sur les algorithmes qui fournit une base solide pour la conception et l'analyse d'algorithmes.");
+				"Un guide pratique pour les programmeurs qui aborde divers aspects du développement logiciel, de la gestion de projet à la performance du code.");
 
 		book.setTypes(types);
 		book.setFilieres(filieres);
