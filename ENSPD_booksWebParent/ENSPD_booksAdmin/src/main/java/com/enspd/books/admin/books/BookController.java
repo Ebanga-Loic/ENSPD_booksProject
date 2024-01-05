@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -49,6 +50,31 @@ public class BookController {
 	public String saveBook(Book book, RedirectAttributes ra) {
 		bookService.save(book);
 		ra.addFlashAttribute("message", "Le livre a été enregistré avec succès.");
+
+		return "redirect:/books";
+	}
+
+	@GetMapping("/books/{id}/enabled/{status}")
+	public String updateBookEnabledStatus(@PathVariable("id") Integer id, @PathVariable("status") boolean enabled,
+			RedirectAttributes redirectAttributes) {
+		bookService.updateBookEnabledStatus(id, enabled);
+		String status = enabled ? "activé" : "désactivé";
+		String message = "Le livre ID " + id + " a été " + status;
+		redirectAttributes.addFlashAttribute("message", message);
+
+		return "redirect:/books";
+	}
+
+	@GetMapping("/books/delete/{id}")
+	public String deleteBook(@PathVariable(name = "id") Integer id, Model model,
+			RedirectAttributes redirectAttributes) {
+		try {
+			bookService.delete(id);
+
+			redirectAttributes.addFlashAttribute("message", "Le livre ID " + id + " a été supprimé avec succès.");
+		} catch (BookNotFoundException ex) {
+			redirectAttributes.addFlashAttribute("message", ex.getMessage());
+		}
 
 		return "redirect:/books";
 	}

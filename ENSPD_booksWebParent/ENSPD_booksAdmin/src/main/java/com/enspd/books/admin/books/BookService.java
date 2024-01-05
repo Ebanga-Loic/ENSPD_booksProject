@@ -3,12 +3,15 @@ package com.enspd.books.admin.books;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.enspd.books.common.entity.Book;
 
 @Service
+@Transactional
 public class BookService {
 
 	@Autowired
@@ -43,4 +46,18 @@ public class BookService {
 
 		return "OK";
 	}
+
+	public void updateBookEnabledStatus(Integer id, boolean enabled) {
+		repo.updateEnabledStatus(id, enabled);
+	}
+	
+	public void delete(Integer id) throws BookNotFoundException {
+		Long countById = repo.countById(id);
+		
+		if (countById == null || countById == 0) {
+			throw new BookNotFoundException("Impossible de trouver un livre avec ID" + id);			
+		}
+		
+		repo.deleteById(id);
+	}	
 }
