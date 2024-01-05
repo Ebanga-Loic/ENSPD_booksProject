@@ -37,7 +37,13 @@
 					<div class="tab-pane" id="description" role="tabpanel">
 						<div th:replace="books/book_description :: content"></div>
 					</div>
-					<div class="tab-pane" id="details" role="tabpanel">Details</div>
+					<div class="tab-pane" id="details" role="tabpanel">
+						<div th:replace="books/book_details :: content"></div>
+						<div>
+							<input type="button" class="btn btn-secondary" value="Ajouter plus de détails"
+								onclick="addNextDetailSection()" />
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="text-center">
@@ -54,62 +60,12 @@
 	<script type="text/javascript">
 		moduleURL = "[[@{/books}]]";
 		typeModuleURL = "[[@{/types}]]";
-
-		dropdownTypes = $("#types");
-		dropdownFilieres = $("#filieres");
-
-		$(document).ready(function () {
-
-			$("#fullDescription").richText();
-
-			dropdownTypes.change(function () {
-				dropdownFilieres.empty();
-				getFilieres();
-			});
-
-			getFilieres();
-		});
-
-
-		function getFilieres() {
-			typeId = dropdownTypes.val();
-			url = typeModuleURL + "/" + typeId + "/filieres";
-
-			$.get(url, function (responseJson) {
-				$.each(responseJson, function (index, filieres) {
-					$("<option>").val(filieres.id).text(filieres.name).appendTo(dropdownFilieres);
-				});
-			});
-		}
-
-		function checkUnique(form) {
-			bookId = $("#id").val();
-			bookName = $("#name").val();
-
-			csrfValue = $("input[name='_csrf']").val();
-
-			url = "[[@{/books/check_unique}]]";
-
-			params = {id: bookId, name: bookName, _csrf: csrfValue};
-
-			$.post(url, params, function (response) {
-				if (response == "OK") {
-					form.submit();
-				} else if (response == "Duplicate") {
-					showWarningModal("Il existe un autre livre portant le nom " + bookName);
-				} else {
-					showErrorModal("Réponse inconnue du serveur.");
-				}
-
-			}).fail(function () {
-				showErrorModal("Ne peut se connecter au serveur.");
-			});
-
-			return false;
-		}
+		checkUniqueUrl = "[[@{/books/check_unique}]]";
 
 	</script>
 	<script th:src="@{/js/common_form.js}"></script>
+	<script th:src="@{/js/book_form_overview.js}"></script>
+	<script th:src="@{/js/book_form_details.js}"></script>
 </body>
 
 </html>
