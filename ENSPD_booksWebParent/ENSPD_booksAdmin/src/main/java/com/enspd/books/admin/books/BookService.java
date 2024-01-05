@@ -27,4 +27,20 @@ public class BookService {
 
 		return repo.save(book);
 	}
+
+	public String checkUnique(Integer id, String name) {
+		boolean isCreatingNew = (id == null || id == 0);
+		Book bookByName = repo.findByName(name);
+
+		if (isCreatingNew) {
+			if (bookByName != null)
+				return "Duplicate";
+		} else {
+			if (bookByName != null && bookByName.getId() != id) {
+				return "Duplicate";
+			}
+		}
+
+		return "OK";
+	}
 }

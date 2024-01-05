@@ -15,7 +15,7 @@
 			<h2>Gestion des Livres | [[${pageTitle}]]</h2>
 		</div>
 
-		<form th:action="@{/books/save}" method="post" th:object="${book}">
+		<form th:action="@{/books/save}" method="post" onsubmit="return checkUnique(this)" th:object="${book}">
 			<input type="hidden" th:field="*{id}" />
 			<div>
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -59,9 +59,9 @@
 		dropdownFilieres = $("#filieres");
 
 		$(document).ready(function () {
-			
+
 			$("#fullDescription").richText();
-			
+
 			dropdownTypes.change(function () {
 				dropdownFilieres.empty();
 				getFilieres();
@@ -81,6 +81,33 @@
 				});
 			});
 		}
+
+		function checkUnique(form) {
+			bookId = $("#id").val();
+			bookName = $("#name").val();
+
+			csrfValue = $("input[name='_csrf']").val();
+
+			url = "[[@{/books/check_unique}]]";
+
+			params = {id: bookId, name: bookName, _csrf: csrfValue};
+
+			$.post(url, params, function (response) {
+				if (response == "OK") {
+					form.submit();
+				} else if (response == "Duplicate") {
+					showWarningModal("Il existe un autre livre portant le nom " + bookName);
+				} else {
+					showErrorModal("Réponse inconnue du serveur.");
+				}
+
+			}).fail(function () {
+				showErrorModal("Ne peut se connecter au serveur.");
+			});
+
+			return false;
+		}
+
 	</script>
 	<script th:src="@{/js/common_form.js}"></script>
 </body>
