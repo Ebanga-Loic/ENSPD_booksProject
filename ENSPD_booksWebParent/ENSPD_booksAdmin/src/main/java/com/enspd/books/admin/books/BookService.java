@@ -1,5 +1,6 @@
 package com.enspd.books.admin.books;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,5 +16,15 @@ public class BookService {
 
 	public List<Book> listAll() {
 		return (List<Book>) repo.findAll();
+	}
+
+	public Book save(Book book) {
+		if (book.getId() == null) {
+			book.setCreatedTime(new Date());
+		}
+
+		book.setUpdatedTime(new Date());
+
+		return repo.save(book);
 	}
 }
