@@ -19,8 +19,8 @@ function getFilieres() {
 	url = typeModuleURL + "/" + typeId + "/filieres";
 
 	$.get(url, function(responseJson) {
-		$.each(responseJson, function(index, filieres) {
-			$("<option>").val(filieres.id).text(filieres.name).appendTo(dropdownFilieres);
+		$.each(responseJson, function(index, filiere) {
+			$("<option>").val(filiere.id).text(filiere.name).appendTo(dropdownFilieres);
 		});
 	});
 }
@@ -31,11 +31,9 @@ function checkUnique(form) {
 
 	csrfValue = $("input[name='_csrf']").val();
 
-	url = "[[@{/books/check_unique}]]";
-
 	params = { id: bookId, name: bookName, _csrf: csrfValue };
 
-	$.post(url, params, function(response) {
+	$.post(checkUniqueUrl, params, function(response) {
 		if (response == "OK") {
 			form.submit();
 		} else if (response == "Duplicate") {

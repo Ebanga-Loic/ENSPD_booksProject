@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enspd.books.admin.types.TypesService;
@@ -47,11 +48,31 @@ public class BookController {
 	}
 
 	@PostMapping("/books/save")
-	public String saveBook(Book book, RedirectAttributes ra) {
+	public String saveBook(Book book, RedirectAttributes ra,
+			@RequestParam(name = "detailNames", required = false) String[] detailNames,
+			@RequestParam(name = "detailValues", required = false) String[] detailValues) {
+
+
+		setBookDetails(detailNames, detailValues, book);
 		bookService.save(book);
+
 		ra.addFlashAttribute("message", "Le livre a été enregistré avec succès.");
 
 		return "redirect:/books";
+	}
+
+	private void setBookDetails(String[] detailNames, String[] detailValues, Book book) {
+		if (detailNames == null || detailNames.length == 0)
+			return;
+
+		for (int count = 0; count < detailNames.length; count++) {
+			String name = detailNames[count];
+			String value = detailValues[count];
+
+			if (!name.isEmpty() && !value.isEmpty()) {
+				book.addDetail(name, value);
+			}
+		}
 	}
 
 	@GetMapping("/books/{id}/enabled/{status}")
