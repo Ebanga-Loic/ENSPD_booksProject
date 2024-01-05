@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enspd.books.admin.types.TypesService;
 import com.enspd.books.common.entity.Book;
@@ -45,10 +46,9 @@ public class BookController {
 	}
 
 	@PostMapping("/books/save")
-	public String saveBook(Book book) {
-		System.out.println("Book Name: " + book.getName());
-		System.out.println("Type ID: " + book.getTypes().getId());
-		System.out.println("Filiere ID: " + book.getFilieres().getId());
+	public String saveBook(Book book, RedirectAttributes ra) {
+		bookService.save(book);
+		ra.addFlashAttribute("message", "Le livre a été enregistré avec succès.");
 
 		return "redirect:/books";
 	}
