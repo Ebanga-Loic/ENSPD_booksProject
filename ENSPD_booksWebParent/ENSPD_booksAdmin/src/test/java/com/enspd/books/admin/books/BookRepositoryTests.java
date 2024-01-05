@@ -92,4 +92,17 @@ public class BookRepositoryTests {
 
 		assertThat(!result.isPresent());
 	}
+
+	@Test
+	public void testSaveBookWithDetails() {
+		Integer bookId = 1;
+		Book book = repo.findById(bookId).get();
+
+		book.addDetail("Nombre pages", "150");
+		book.addDetail("Numéro de téléphone", "652452678");
+		book.addDetail("Mention", "Honorable");
+
+		Book savedBook = repo.save(book);
+		assertThat(savedBook.getDetails()).isNotEmpty();
+	}
 }
