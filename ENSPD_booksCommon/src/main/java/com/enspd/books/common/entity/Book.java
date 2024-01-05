@@ -1,7 +1,10 @@
 package com.enspd.books.common.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -45,6 +49,9 @@ public class Book {
 	@ManyToOne
 	@JoinColumn(name = "type_id")
 	private Types types;
+
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+	private List<BookDetail> details = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -126,9 +133,21 @@ public class Book {
 		this.types = types;
 	}
 
+	public List<BookDetail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(List<BookDetail> details) {
+		this.details = details;
+	}
+
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", name=" + name + "]";
+	}
+
+	public void addDetail(String name, String value) {
+		this.details.add(new BookDetail(name, value, this));
 	}
 
 }
