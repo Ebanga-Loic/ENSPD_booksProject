@@ -31,7 +31,12 @@
 				<tbody>
 					<tr th:each="book : ${listBooks}">
 						<td>[[${book.id}]]</td>
-						<td>[[${book.name}]]</td>
+						<td>
+							<a class="link-detail" th:href="@{'/books/detail/' + ${book.id}}"
+								title="Voir les détails du livre">
+								[[${book.name}]]
+							</a>
+						</td>
 						<td>[[${book.auteur}]]</td>
 						<td>[[${book.types.name}]]</td>
 						<td>[[${book.filieres.name}]]</td>
@@ -39,8 +44,8 @@
 							<div th:replace="fragments :: status(${book.enabled}, 'book', '/books/' + ${book.id})" />
 						</td>
 						<td>
-							<a class="fas fa-file-alt fa-2x icon-green" th:href="@{'/books/detail/' + ${book.id}}"
-								title="Voir les détails du livre"></a>
+							<a class="fas fa-file-alt fa-2x icon-green link-detail"
+								th:href="@{'/books/detail/' + ${book.id}}" title="Voir les détails du livre"></a>
 							&nbsp;
 							<div th:replace="fragments :: edit('book', '/books/edit/' + ${book.id})" />
 							&nbsp;
@@ -54,6 +59,13 @@
 
 		<div th:replace="modal_fragments :: confirm_modal" />
 
+		<div class="modal fade" id="detailModal">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+				</div>
+			</div>
+		</div>
+
 		<div th:replace="fragments :: footer"></div>
 
 	</div>
@@ -66,6 +78,13 @@
 				e.preventDefault();
 				showDeleteConfirmModal($(this), 'book');
 			});
+
+			$(".link-detail").on("click", function (e) {
+				e.preventDefault();
+				linkDetailURL = $(this).attr("href");
+				$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+			});
+
 		});
 	</script>
 </body>

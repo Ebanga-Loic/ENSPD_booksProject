@@ -49,10 +49,12 @@ public class BookController {
 
 	@PostMapping("/books/save")
 	public String saveBook(Book book, RedirectAttributes ra,
+			@RequestParam(name = "detailIDs", required = false) String[] detailIDs,
 			@RequestParam(name = "detailNames", required = false) String[] detailNames,
 			@RequestParam(name = "detailValues", required = false) String[] detailValues) {
 
-		setBookDetails(detailNames, detailValues, book);
+		setBookDetails(detailIDs, detailNames, detailValues, book);
+
 		bookService.save(book);
 
 		ra.addFlashAttribute("message", "Le livre a été enregistré avec succès.");
@@ -60,15 +62,18 @@ public class BookController {
 		return "redirect:/books";
 	}
 
-	private void setBookDetails(String[] detailNames, String[] detailValues, Book book) {
+	private void setBookDetails(String[] detailIDs, String[] detailNames, String[] detailValues, Book book) {
 		if (detailNames == null || detailNames.length == 0)
 			return;
 
 		for (int count = 0; count < detailNames.length; count++) {
 			String name = detailNames[count];
 			String value = detailValues[count];
+			Integer id = Integer.parseInt(detailIDs[count]);
 
-			if (!name.isEmpty() && !value.isEmpty()) {
+			if (id != 0) {
+				book.addDetail(id, name, value);
+			} else if (!name.isEmpty() && !value.isEmpty()) {
 				book.addDetail(name, value);
 			}
 		}
@@ -110,6 +115,21 @@ public class BookController {
 			model.addAttribute("pageTitle", "Editer le Livre (ID: " + id + ")");
 
 			return "books/book_form";
+
+		} catch (BookNotFoundException e) {
+			ra.addFlashAttribute("message", e.getMessage());
+
+			return "redirect:/books";
+		}
+	}
+
+	@GetMapping("/books/detail/{id}")
+	public String viewBookDetails(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
+		try {
+			Book book = bookService.get(id);
+			model.addAttribute("book", book);
+
+			return "books/book_detail_modal";
 
 		} catch (BookNotFoundException e) {
 			ra.addFlashAttribute("message", e.getMessage());

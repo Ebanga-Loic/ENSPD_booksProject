@@ -50,7 +50,7 @@ public class Book {
 	@JoinColumn(name = "type_id")
 	private Types types;
 
-	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<BookDetail> details = new ArrayList<>();
 
 	public Integer getId() {
@@ -148,6 +148,10 @@ public class Book {
 
 	public void addDetail(String name, String value) {
 		this.details.add(new BookDetail(name, value, this));
+	}
+
+	public void addDetail(Integer id, String name, String value) {
+		this.details.add(new BookDetail(id, name, value, this));
 	}
 
 }

@@ -35,6 +35,14 @@ public class BookDetail {
 		this.book = book;
 	}
 
+	public BookDetail(Integer id, String name, String value, Book book) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.value = value;
+		this.book = book;
+	}
+
 	public Integer getId() {
 		return id;
 	}
