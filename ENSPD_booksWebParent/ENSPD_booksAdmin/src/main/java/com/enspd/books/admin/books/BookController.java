@@ -122,4 +122,19 @@ public class BookController {
 			return "redirect:/books";
 		}
 	}
+
+	@GetMapping("/books/detail/{id}")
+	public String viewBookDetails(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
+		try {
+			Book book = bookService.get(id);
+			model.addAttribute("book", book);
+
+			return "books/book_detail_modal";
+
+		} catch (BookNotFoundException e) {
+			ra.addFlashAttribute("message", e.getMessage());
+
+			return "redirect:/books";
+		}
+	}
 }
