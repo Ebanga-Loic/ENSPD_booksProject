@@ -17,6 +17,8 @@
 
 		<form th:action="@{/books/save}" method="post" onsubmit="return checkUnique(this)" th:object="${book}">
 			<input type="hidden" th:field="*{id}" />
+			<input th:if="${book.filieres != null}" type="hidden" id="filiereId"
+				th:value="${book.filieres.id}" />
 			<div>
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item">

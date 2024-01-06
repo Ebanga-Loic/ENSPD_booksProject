@@ -24,9 +24,18 @@
 		<div class="form-group row">
 			<label class="col-sm-2 col-form-label">Filiere:</label>
 			<div class="col-sm-10">
-				<select th:field="*{filieres}" class="form-control" required>
+				<th:block th:if="${book.filieres != null}">
+					<select th:field="*{filieres}" class="form-control" required>
+						<th:block th:each="filiere : ${book.types.filieres}">
+							<option th:value="${filiere.id}">[[${filiere.name}]]</option>
+						</th:block>
+					</select>
+				</th:block>
 
-				</select>
+				<th:block th:if="${book.filieres == null}">
+					<select th:field="*{filieres}" class="form-control" required>
+					</select>
+				</th:block>
 			</div>
 		</div>
 
