@@ -2,6 +2,7 @@ package com.enspd.books.admin.books;
 
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
@@ -50,14 +51,22 @@ public class BookService {
 	public void updateBookEnabledStatus(Integer id, boolean enabled) {
 		repo.updateEnabledStatus(id, enabled);
 	}
-	
+
 	public void delete(Integer id) throws BookNotFoundException {
 		Long countById = repo.countById(id);
-		
+
 		if (countById == null || countById == 0) {
-			throw new BookNotFoundException("Impossible de trouver un livre avec ID" + id);			
+			throw new BookNotFoundException("Impossible de trouver un livre avec ID" + id);
 		}
-		
+
 		repo.deleteById(id);
-	}	
+	}
+
+	public Book get(Integer id) throws BookNotFoundException {
+		try {
+			return repo.findById(id).get();
+		} catch (NoSuchElementException ex) {
+			throw new BookNotFoundException("Impossible de trouver un livre avec ID" + id);
+		}
+	}
 }

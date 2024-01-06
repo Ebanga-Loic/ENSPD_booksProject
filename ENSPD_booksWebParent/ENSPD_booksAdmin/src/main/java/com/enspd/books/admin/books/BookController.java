@@ -52,7 +52,6 @@ public class BookController {
 			@RequestParam(name = "detailNames", required = false) String[] detailNames,
 			@RequestParam(name = "detailValues", required = false) String[] detailValues) {
 
-
 		setBookDetails(detailNames, detailValues, book);
 		bookService.save(book);
 
@@ -98,5 +97,24 @@ public class BookController {
 		}
 
 		return "redirect:/books";
+	}
+
+	@GetMapping("/books/edit/{id}")
+	public String editBook(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
+		try {
+			Book book = bookService.get(id);
+			List<Types> listTypes = typeService.listAll();
+
+			model.addAttribute("book", book);
+			model.addAttribute("listTypes", listTypes);
+			model.addAttribute("pageTitle", "Editer le Livre (ID: " + id + ")");
+
+			return "books/book_form";
+
+		} catch (BookNotFoundException e) {
+			ra.addFlashAttribute("message", e.getMessage());
+
+			return "redirect:/books";
+		}
 	}
 }

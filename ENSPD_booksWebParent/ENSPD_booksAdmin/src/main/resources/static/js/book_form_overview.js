@@ -10,8 +10,19 @@ $(document).ready(function() {
 		getFilieres();
 	});
 
-	getFilieres();
+	getFilieresForNewForm();
 });
+
+function getFilieresForNewForm() {
+	filiereIdField = $("#filiereId");
+	editMode = false;
+
+	if (filiereIdField.length) {
+		editMode = true;
+	}
+
+	if (!editMode) getFilieres();
+}
 
 
 function getFilieres() {
