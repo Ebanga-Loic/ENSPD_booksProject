@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.enspd.books.admin.filieres.FilieresService;
 import com.enspd.books.admin.types.TypesService;
 import com.enspd.books.common.entity.Book;
+import com.enspd.books.common.entity.Filieres;
 import com.enspd.books.common.entity.Types;
 
 @Controller
@@ -25,16 +27,22 @@ public class BookController {
 	@Autowired
 	private TypesService typeService;
 
+	@Autowired
+	private FilieresService filiereService;
+
 	@GetMapping("/books")
 	public String listFirstPage(Model model) {
-		return listByPage(1, model, "name", "asc", null);
+		return listByPage(1, model, "name", "asc", null, 0);
 	}
 
 	@GetMapping("/books/page/{pageNum}")
 	public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
-			@Param("sortField") String sortField, @Param("sortDir") String sortDir, @Param("keyword") String keyword) {
-		Page<Book> page = bookService.listByPage(pageNum, sortField, sortDir, keyword);
+			@Param("sortField") String sortField, @Param("sortDir") String sortDir, @Param("keyword") String keyword,
+			@Param("filiereId") Integer filiereId) {
+		Page<Book> page = bookService.listByPage(pageNum, sortField, sortDir, keyword, filiereId);
 		List<Book> listBooks = page.getContent();
+
+		List<Filieres> listFilieres = filiereService.listAll();
 
 		long startCount = (pageNum - 1) * BookService.BOOKS_PER_PAGE + 1;
 		long endCount = startCount + BookService.BOOKS_PER_PAGE - 1;
@@ -43,6 +51,9 @@ public class BookController {
 		}
 
 		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+
+		if (filiereId != null)
+			model.addAttribute("filiereId", filiereId);
 
 		model.addAttribute("currentPage", pageNum);
 		model.addAttribute("totalPages", page.getTotalPages());
@@ -54,6 +65,7 @@ public class BookController {
 		model.addAttribute("reverseSortDir", reverseSortDir);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("listBooks", listBooks);
+		model.addAttribute("listFilieres", listFilieres);
 
 		return "books/books";
 	}
