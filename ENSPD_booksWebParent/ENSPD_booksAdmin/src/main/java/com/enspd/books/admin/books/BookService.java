@@ -7,6 +7,10 @@ import java.util.NoSuchElementException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.enspd.books.common.entity.Book;
@@ -14,12 +18,27 @@ import com.enspd.books.common.entity.Book;
 @Service
 @Transactional
 public class BookService {
+	public static final int BOOKS_PER_PAGE = 5;
 
 	@Autowired
 	private BookRepository repo;
 
 	public List<Book> listAll() {
 		return (List<Book>) repo.findAll();
+	}
+
+	public Page<Book> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
+		Sort sort = Sort.by(sortField);
+
+		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+
+		Pageable pageable = PageRequest.of(pageNum - 1, BOOKS_PER_PAGE, sort);
+
+		if (keyword != null) {
+			return repo.findAll(keyword, pageable);
+		}
+
+		return repo.findAll(pageable);
 	}
 
 	public Book save(Book book) {

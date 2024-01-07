@@ -19,12 +19,12 @@
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
 				<thead class="thead-dark">
 					<tr>
-						<th>ID</th>
+						<th th:replace="fragments :: column_link('/books', 'id', 'ID', 'none')" />
 						<th>Book Name</th>
 						<th>Auteur</th>
-						<th>Type book</th>
-						<th>Filiere</th>
-						<th>Enabled</th>
+						<th th:replace="fragments :: column_link('/books', 'types', 'Types de Livre', 'none')" />
+						<th th:replace="fragments :: column_link('/books', 'filieres', 'Filiere', 'none')" />
+						<th th:replace="fragments :: column_link('/books', 'enabled', 'Statut', 'none')" />
 						<th></th>
 					</tr>
 				</thead>
@@ -65,6 +65,8 @@
 				</div>
 			</div>
 		</div>
+
+		<div th:replace="fragments :: pagination('/books', 'books')"></div>
 
 		<div th:replace="fragments :: footer"></div>
 
