@@ -12,6 +12,7 @@ import com.enspd.books.common.exception.BookNotFoundException;
 @Service
 public class BookService {
 	public static final int BOOKS_PER_PAGE = 10;
+	public static final int SEARCH_RESULTS_PER_PAGE = 10;
 
 	@Autowired
 	private BookRepository repo;
@@ -31,5 +32,11 @@ public class BookService {
 		}
 
 		return book;
+	}
+
+	public Page<Book> search(String keyword, int pageNum) {
+		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULTS_PER_PAGE);
+		return repo.search(keyword, pageable);
+
 	}
 }
