@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.enspd.books.common.entity.Filieres;
+import com.enspd.books.common.exception.FiliereNotFoundException;
 
 @Service
 public class FiliereService {
@@ -30,7 +31,14 @@ public class FiliereService {
 		return listFilieres;
 	}
 
-	public Filieres getFiliere(String alias) {
-		return repo.findByAliasEnabled(alias);
+	public Filieres getFiliere(String alias) throws FiliereNotFoundException {
+
+		Filieres filiere = repo.findByAliasEnabled(alias);
+		if (filiere == null) {
+			throw new FiliereNotFoundException("Impossible de trouver une filière avec cet alias" + alias);
+		}
+
+		return filiere;
 	}
+	
 }

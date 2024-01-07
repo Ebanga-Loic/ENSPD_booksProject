@@ -1,4 +1,4 @@
-package com.enspd.books.admin.books;
+package com.enspd.books.common.exception;
 
 public class BookNotFoundException extends Exception {
 

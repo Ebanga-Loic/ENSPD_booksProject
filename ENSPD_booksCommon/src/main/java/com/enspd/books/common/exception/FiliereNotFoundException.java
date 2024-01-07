@@ -1,4 +1,4 @@
-package com.enspd.books.admin.filieres;
+package com.enspd.books.common.exception;
 
 public class FiliereNotFoundException extends Exception {
 

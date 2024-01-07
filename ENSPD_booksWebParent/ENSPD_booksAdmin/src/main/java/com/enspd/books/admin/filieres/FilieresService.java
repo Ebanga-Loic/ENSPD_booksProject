@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.enspd.books.common.entity.Filieres;
+import com.enspd.books.common.exception.FiliereNotFoundException;
 
 @Service
 @Transactional

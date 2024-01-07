@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.enspd.books.common.entity.Book;
+import com.enspd.books.common.exception.BookNotFoundException;
 
 @Service
 public class BookService {
@@ -16,10 +17,19 @@ public class BookService {
 	private BookRepository repo;
 
 	public Page<Book> listByFiliere(int pageNum, Integer categoryId) {
-		String categoryIdMatch =String.valueOf(categoryId);
+		String categoryIdMatch = String.valueOf(categoryId);
 		Pageable pageable = PageRequest.of(pageNum - 1, BOOKS_PER_PAGE);
 
 		return repo.listByFiliere(categoryId, categoryIdMatch, pageable);
 
+	}
+
+	public Book getBook(String name) throws BookNotFoundException {
+		Book book = repo.findByName(name);
+		if (book == null) {
+			throw new BookNotFoundException("Impossible de trouver un livre avec ce nom" + name);
+		}
+
+		return book;
 	}
 }

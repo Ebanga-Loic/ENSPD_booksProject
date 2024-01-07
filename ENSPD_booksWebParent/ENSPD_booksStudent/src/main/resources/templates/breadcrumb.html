@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="content" th:remove="tag">
+		<div>
+			<div class="row">
+				<div class="col">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">
+								<a th:href="@{/}">Accueil</a>
+							</li>
+
+							<th:block th:each="book : ${listBooks}">
+								<li class="breadcrumb-item">
+									<a th:href="@{'/f/' + ${book.filieres.alias}}">[[${book.filieres}]]</a>
+								</li>
+							</th:block>
+
+							<li class="breadcrumb-item" th:if="${book != null}">
+								<span>[[${book.name}]]</span>
+							</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
