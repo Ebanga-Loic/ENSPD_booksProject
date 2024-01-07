@@ -1,0 +1,30 @@
+2023-12-14 23:01:25.045  INFO 21520 --- [restartedMain] c.e.b.admin.EnspdBooksAdminApplication   : Starting EnspdBooksAdminApplication using Java 17.0.7 on EBANGA with PID 21520 (C:\Users\EBANGA LOIC\Desktop\worksProgram\wokspace Spring\ENSPD_booksProject\ENSPD_booksWebParent\ENSPD_booksAdmin\target\classes started by EBANGA LOIC in C:\Users\EBANGA LOIC\Desktop\worksProgram\wokspace Spring\ENSPD_booksProject\ENSPD_booksWebParent\ENSPD_booksAdmin)
+2023-12-14 23:01:25.047  INFO 21520 --- [restartedMain] c.e.b.admin.EnspdBooksAdminApplication   : No active profile set, falling back to default profiles: default
+2023-12-14 23:01:25.176  INFO 21520 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-14 23:01:25.192  INFO 21520 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 3 JPA repository interfaces.
+2023-12-14 23:01:25.273  INFO 21520 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-12-14 23:01:25.273  INFO 21520 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-14 23:01:25.274  INFO 21520 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-12-14 23:01:25.305  INFO 21520 --- [restartedMain] o.a.c.c.C.[.[.[/ENSPD_booksAdmin]        : Initializing Spring embedded WebApplicationContext
+2023-12-14 23:01:25.307  INFO 21520 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 257 ms
+2023-12-14 23:01:25.341  INFO 21520 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-14 23:01:25.347  INFO 21520 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Starting...
+2023-12-14 23:01:25.358  INFO 21520 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Start completed.
+2023-12-14 23:01:25.358  INFO 21520 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2023-12-14 23:01:25.472  INFO 21520 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-12-14 23:01:25.473  INFO 21520 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-14 23:01:25.487  INFO 21520 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-14 23:01:25.549  WARN 21520 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-14 23:01:25.608  INFO 21520 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/images/**'] with []
+2023-12-14 23:01:25.609  INFO 21520 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/js/**'] with []
+2023-12-14 23:01:25.609  INFO 21520 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/webjars/**'] with []
+2023-12-14 23:01:25.614  INFO 21520 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7fa3a7cb, org.springframework.security.web.context.SecurityContextPersistenceFilter@6a061afc, org.springframework.security.web.header.HeaderWriterFilter@19f923af, org.springframework.security.web.csrf.CsrfFilter@7eb21825, org.springframework.security.web.authentication.logout.LogoutFilter@41b820d4, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@54becd8c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@15096425, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@453dc970, org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter@16d4f84f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@588c1a15, org.springframework.security.web.session.SessionManagementFilter@41b596a, org.springframework.security.web.access.ExceptionTranslationFilter@3d68531a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6258ba10]
+2023-12-14 23:01:25.641  INFO 21520 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2023-12-14 23:01:25.651  INFO 21520 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-12-14 23:01:25.932  INFO 21520 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path '/ENSPD_booksAdmin'
+2023-12-14 23:01:25.939  INFO 21520 --- [restartedMain] c.e.b.admin.EnspdBooksAdminApplication   : Started EnspdBooksAdminApplication in 0.934 seconds (JVM running for 4012.385)
+2023-12-14 23:01:25.940  INFO 21520 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-14 23:02:08.556  INFO 21520 --- [Thread-38] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-12-14 23:02:08.557  INFO 21520 --- [Thread-38] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-14 23:02:08.557  INFO 21520 --- [Thread-38] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown initiated...
+2023-12-14 23:02:08.564  INFO 21520 --- [Thread-38] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown completed.
