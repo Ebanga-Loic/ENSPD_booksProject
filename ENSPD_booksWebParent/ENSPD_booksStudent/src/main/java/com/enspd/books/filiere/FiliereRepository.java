@@ -11,4 +11,7 @@ public interface FiliereRepository extends CrudRepository<Filieres, Integer> {
 
 	@Query("SELECT c FROM Filieres c WHERE c.enabled = true ORDER BY c.name ASC")
 	public List<Filieres> findAllEnabled();
+
+	@Query("SELECT c FROM Filieres c WHERE c.enabled = true AND c.alias = ?1")
+	public Filieres findByAliasEnabled(String alias);
 }

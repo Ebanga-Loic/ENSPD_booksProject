@@ -1,5 +1,7 @@
 package com.enspd.books.filiere;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -24,5 +26,13 @@ public class FiliereRepositoryTests {
 		filieres.forEach(filiere -> {
 			System.out.println(filiere.getName() + " (" + filiere.isEnabled() + ")");
 		});
+	}
+
+	@Test
+	public void testFindFilieresByAlias() {
+		String alias = "GIT";
+		Filieres filiere = repo.findByAliasEnabled(alias);
+
+		assertThat(filiere).isNotNull();
 	}
 }
