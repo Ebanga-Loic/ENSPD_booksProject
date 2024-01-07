@@ -22,4 +22,12 @@ public interface BookRepository extends PagingAndSortingRepository<Book, Integer
 			+ "OR p.types.name LIKE %?1% " + "OR p.filieres.name LIKE %?1%")
 	public Page<Book> findAll(String keyword, Pageable pageable);
 
+	@Query("SELECT p FROM Book p WHERE p.filieres.id = ?1 " + "OR p.filieres.name LIKE %?2%")
+	public Page<Book> findAllInFiliere(Integer categoryId, String categoryIdMatch, Pageable pageable);
+
+	@Query("SELECT p FROM Book p WHERE (p.filieres.id = ?1 " + "OR p.filieres.name LIKE %?2%) AND "
+			+ "(p.name LIKE %?3% " + "OR p.fullDescription LIKE %?3% " + "OR p.types.name LIKE %?3% "
+			+ "OR p.filieres.name LIKE %?3%)")
+	public Page<Book> searchInFiliere(Integer categoryId, String categoryIdMatch, String keyword, Pageable pageable);
+
 }

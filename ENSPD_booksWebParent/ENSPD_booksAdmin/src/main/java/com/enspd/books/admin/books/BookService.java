@@ -27,15 +27,25 @@ public class BookService {
 		return (List<Book>) repo.findAll();
 	}
 
-	public Page<Book> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
+	public Page<Book> listByPage(int pageNum, String sortField, String sortDir, String keyword, Integer filiereId) {
 		Sort sort = Sort.by(sortField);
 
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
 		Pageable pageable = PageRequest.of(pageNum - 1, BOOKS_PER_PAGE, sort);
 
-		if (keyword != null) {
+		if (keyword != null && !keyword.isEmpty()) {
+			if (filiereId != null && filiereId > 0) {
+				String filiereIdMatch = String.valueOf(filiereId);
+				return repo.searchInFiliere(filiereId, filiereIdMatch, keyword, pageable);
+			}
+
 			return repo.findAll(keyword, pageable);
+		}
+
+		if (filiereId != null && filiereId > 0) {
+			String filiereIdMatch = String.valueOf(filiereId);
+			return repo.findAllInFiliere(filiereId, filiereIdMatch, pageable);
 		}
 
 		return repo.findAll(pageable);

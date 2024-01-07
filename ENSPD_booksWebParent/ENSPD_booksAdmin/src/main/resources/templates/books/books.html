@@ -13,7 +13,37 @@
 			<a th:href="@{/books/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
 		</div>
 
-		<div th:replace="fragments :: search_form_and_message('/books/page/1')" />
+		<div>
+			<form th:action="@{/books/page/1}" class="form-inline m-3" id="searchForm">
+				<input type="hidden" name="sortField" th:value="${sortField}" />
+				<input type="hidden" name="sortDir" th:value="${sortDir}" />
+
+				Filiere:&nbsp;
+				<select class="form-control" name="filiereId" id="dropdownFilieres">
+					<option value="0">Toutes les Filières</option>
+
+					<th:block th:each="filiere : ${listFilieres}">
+						<option th:value="${filiere.id}" th:selected="(${filiereId} == ${filiere.id})">
+							[[${filiere.name}]]</option>
+					</th:block>
+				</select>
+
+				&nbsp;Filtrer:&nbsp;
+				<input type="search" name="keyword" th:value="${keyword}" class="form-control" required />
+				&nbsp;&nbsp;
+				<button type="submit" class="btn btn-primary">
+					<i class="fas fa-search"></i>
+				</button>
+				&nbsp;&nbsp;
+				<button type="button" class="btn btn-secondary" onclick="clearFilter()">
+					<i class="fas fa-eraser"></i>
+				</button>
+			</form>
+
+			<div th:if="${message != null}" class="alert alert-success text-center">
+				[[${message}]]
+			</div>
+		</div>
 
 		<div class="full-details">
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
@@ -85,6 +115,10 @@
 				e.preventDefault();
 				linkDetailURL = $(this).attr("href");
 				$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+			});
+
+			$("#dropdownFilieres").on("change", function () {
+				$("#searchForm").submit();
 			});
 
 		});
