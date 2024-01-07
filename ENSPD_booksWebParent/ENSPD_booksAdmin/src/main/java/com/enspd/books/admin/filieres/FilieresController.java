@@ -20,6 +20,7 @@ import com.enspd.books.admin.FileUploadUtil;
 import com.enspd.books.admin.user.UserService;
 import com.enspd.books.common.entity.Filieres;
 import com.enspd.books.common.entity.User;
+import com.enspd.books.common.exception.FiliereNotFoundException;
 
 @Controller
 public class FilieresController {

@@ -18,6 +18,7 @@ import com.enspd.books.admin.types.TypesService;
 import com.enspd.books.common.entity.Book;
 import com.enspd.books.common.entity.Filieres;
 import com.enspd.books.common.entity.Types;
+import com.enspd.books.common.exception.BookNotFoundException;
 
 @Controller
 public class BookController {
