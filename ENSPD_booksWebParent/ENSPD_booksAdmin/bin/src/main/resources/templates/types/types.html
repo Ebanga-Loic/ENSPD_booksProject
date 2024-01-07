@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: page_head('Types - ENSPD Books Admin', 'none')" />
+
+<body>
+	<div class="container-fluid">
+		<div th:replace="navigation :: menu"></div>
+		<div>
+			<h2>Gestions des Types de livres</h2>
+
+			<a th:href="@{/types/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
+			<a th:href="@{/types/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
+
+		</div>
+
+		<div th:replace="fragments :: search_form_and_message('/types/page/1')" />
+
+		<div class="full-details">
+			<table class="table table-bordered table-striped table-hover table-responsive-xl">
+				<thead class="thead-dark">
+					<tr>
+						<th class="hideable-column">Types ID</th>
+						<th th:replace="fragments :: column_link('/types', 'name', 'Types Name', 'none')" />
+						<th>Filieres</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="type : ${listTypes}">
+						<td class="hideable-column">[[${type.id}]]</td>
+						<td>[[${type.name}]]</td>
+						<td>
+							<th:block th:each="filiere : ${type.filieres}">
+								<span class="badge badge-secondary" th:text="${filiere.name}"></span>
+							</th:block>
+						</td>
+
+						<td>
+							<div th:replace="fragments :: edit('types', '/types/edit/' + ${type.id})" />
+							&nbsp;
+							<div
+								th:replace="fragments :: delete('types', ${type.id}, '/types/delete/' + ${type.id}, true)" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="less-details">
+			<div th:each="type : ${listTypes}" class="row m-1">
+				<div class="col-6">
+					<div><b>[[${type.name}]]</b></div>
+					<div class="mt-2">
+						<div th:replace="fragments :: edit('type', '/types/edit/' + ${type.id})" />
+						&nbsp;
+						<div
+							th:replace="fragments :: delete('type', ${type.id}, '/types/delete/' + ${type.id}, true)" />
+					</div>
+				</div>
+				<div>&nbsp;</div>
+			</div>
+		</div>
+
+		<div th:replace="fragments :: pagination('/types', 'types')"></div>
+
+		<div th:replace="modal_fragments :: confirm_modal" />
+
+		<div th:replace="fragments :: footer"></div>
+
+	</div>
+	<script th:src="@{/js/common_list.js}"></script>
+	<script type="text/javascript">
+		moduleURL = "[[@{/types}]]";
+
+		$(document).ready(function () {
+			$(".link-delete").on("click", function (e) {
+				e.preventDefault();
+				showDeleteConfirmModal($(this), 'types');
+			});
+		});
+	</script>
+</body>
+
+</html>

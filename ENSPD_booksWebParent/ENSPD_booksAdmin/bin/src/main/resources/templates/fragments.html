@@ -24,7 +24,7 @@
 	<th th:fragment="column_link(moduleURL,fieldName,columnLabel,removeTag)" th:remove="${removeTag}">
 		<a class="text-white"
 			th:href="@{${moduleURL}+'/page/'+${currentPage}+'?sortField='+${fieldName}+'&sortDir='+${sortField!=fieldName?sortDir:reverseSortDir}+${keyword!=null ? '&keyword='+keyword:''}+ ${filiereId != null ? '&filiereId=' + filiereId : ''}}">
-			[[${columnLabel}]] 
+			[[${columnLabel}]]
 		</a>
 
 		<span th:if="${sortField==fieldName}"

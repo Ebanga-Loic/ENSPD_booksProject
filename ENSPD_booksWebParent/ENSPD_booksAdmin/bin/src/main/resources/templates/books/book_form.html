@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<head th:replace="fragments :: page_head(${pageTitle}, 'tag')" />
+	<link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
+	<script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div th:replace="navigation :: menu"></div>
+		<div>
+			<h2>Gestion des Livres | [[${pageTitle}]]</h2>
+		</div>
+
+		<form th:action="@{/books/save}" method="post" onsubmit="return checkUnique(this)" th:object="${book}">
+			<input type="hidden" th:field="*{id}" />
+			<input th:if="${book.filieres != null}" type="hidden" id="filiereId"
+				th:value="${book.filieres.id}" />
+			<div>
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" data-toggle="tab" href="#overview" role="tab">Genéral</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="tab" href="#description" role="tab">Description</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="tab" href="#details" role="tab">Details</a>
+					</li>
+				</ul>
+
+				<div class="tab-content">
+					<div class="tab-pane active p-3" id="overview" role="tabpanel">
+						<div th:replace="books/book_overview :: content"></div>
+					</div>
+					<div class="tab-pane" id="description" role="tabpanel">
+						<div th:replace="books/book_description :: content"></div>
+					</div>
+					<div class="tab-pane" id="details" role="tabpanel">
+						<div th:replace="books/book_details :: content"></div>
+						<div>
+							<input type="button" class="btn btn-secondary" value="Ajouter plus de détails"
+								onclick="addNextDetailSection()" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="text-center">
+				<input type="submit" value="Save" class="btn btn-primary m-3" />
+				<input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel" />
+			</div>
+		</form>
+
+		<div th:replace="modal_fragments :: modal_dialog"></div>
+
+		<div th:replace="fragments :: footer"></div>
+
+	</div>
+	<script type="text/javascript">
+		moduleURL = "[[@{/books}]]";
+		typeModuleURL = "[[@{/types}]]";
+		checkUniqueUrl = "[[@{/books/check_unique}]]";
+
+	</script>
+	<script th:src="@{/js/common_form.js}"></script>
+	<script th:src="@{/js/book_form_overview.js}"></script>
+	<script th:src="@{/js/book_form_details.js}"></script>
+</body>
+
+</html>
