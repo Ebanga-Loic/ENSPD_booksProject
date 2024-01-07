@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,5 +72,34 @@ public class BookController {
 		} catch (BookNotFoundException e) {
 			return "error/404";
 		}
+	}
+
+	@GetMapping("/search")
+	public String searchFirstPage(@Param("keyword") String keyword, Model model) {
+		return searchByPage(keyword, 1, model);
+	}
+
+	@GetMapping("/search/page/{pageNum}")
+	public String searchByPage(@Param("keyword") String keyword, @PathVariable("pageNum") int pageNum, Model model) {
+		Page<Book> pageBooks = bookService.search(keyword, pageNum);
+		List<Book> listResult = pageBooks.getContent();
+
+		long startCount = (pageNum - 1) * BookService.SEARCH_RESULTS_PER_PAGE + 1;
+		long endCount = startCount + BookService.SEARCH_RESULTS_PER_PAGE - 1;
+		if (endCount > pageBooks.getTotalElements()) {
+			endCount = pageBooks.getTotalElements();
+		}
+
+		model.addAttribute("currentPage", pageNum);
+		model.addAttribute("totalPages", pageBooks.getTotalPages());
+		model.addAttribute("startCount", startCount);
+		model.addAttribute("endCount", endCount);
+		model.addAttribute("totalItems", pageBooks.getTotalElements());
+		model.addAttribute("pageTitle", keyword + " - Search Result");
+
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("listResult", listResult);
+
+		return "book/search_result";
 	}
 }

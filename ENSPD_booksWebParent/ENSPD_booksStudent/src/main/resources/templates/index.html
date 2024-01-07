@@ -8,12 +8,14 @@
 	<div class="container-fluid">
 		<div th:replace="navigation :: header_menu"></div>
 
+		<div th:replace="navigation :: search_nav"></div>
+
 		<div>
 			<h1>Livres par Filières</h1>
 		</div>
 
 		<div class="row">
-			<div class="col" th:each="filiere : ${listFilieres}">
+			<div class="col-sm-2" th:each="filiere : ${listFilieres}">
 				<div>
 					<a th:href="@{'/f/' + ${filiere.alias}}">[[${filiere.name}]]</a>
 				</div>
