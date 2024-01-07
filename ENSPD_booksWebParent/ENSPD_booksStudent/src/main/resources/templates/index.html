@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-	<meta charset="ISO-8859-1">
-	<title>ENSPD Books Student</title>
-</head>
+<head th:replace="fragments :: page_head('Home - ENSPD Books Students', 'none')" />
 
 <body>
-	<h1>Welcome ENSPD Books Student</h1>
+	<div th:replace="navigation :: header_menu"></div>
+
+	<div>
+		<h1>Welcome ENSPD Books Student</h1>
+	</div>
+
+	<div th:replace="navigation :: footer_menu"></div>
 </body>
 
 </html>
