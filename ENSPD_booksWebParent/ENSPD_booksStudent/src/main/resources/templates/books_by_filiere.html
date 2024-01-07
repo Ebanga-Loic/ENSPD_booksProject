@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
+
+<body>
+	<div class="container-fluid">
+		<div th:replace="navigation :: header_menu"></div>
+
+		<div>
+			<div class="row">
+				<div class="col">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">
+								<a th:href="@{/}">Accueil</a>
+							</li>
+
+							<th:block th:each="book : ${listBooks}">
+								<li class="breadcrumb-item">
+									<a th:href="@{'/f/' + ${book.filieres.alias}}">[[${book.filieres}]]</a>
+								</li>
+							</th:block>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">&nbsp;</div>
+		<div class="row">
+			<th:block th:each="book : ${listBooks}">
+				<div class="col">
+					<div>
+						<br />
+						<b>[[${book.name}]]</b>
+					</div>
+					<div>
+						<span style="font-size: larger; color: darkred"> [[${book.auteur}]]</span>
+					</div>
+				</div>
+			</th:block>
+		</div>
+
+		<div th:replace="fragments :: pagination('/f/' + ${filiere}, 'book')"></div>
+
+		<div th:replace="navigation :: footer_menu"></div>
+	</div>
+</body>
+
+</html>

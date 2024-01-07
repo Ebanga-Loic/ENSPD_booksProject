@@ -29,4 +29,8 @@ public class FiliereService {
 
 		return listFilieres;
 	}
+
+	public Filieres getFiliere(String alias) {
+		return repo.findByAliasEnabled(alias);
+	}
 }
