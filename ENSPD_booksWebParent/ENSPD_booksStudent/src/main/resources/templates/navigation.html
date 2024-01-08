@@ -5,7 +5,7 @@
 	<div th:fragment="header_menu">
 		<nav class="navbar navbar-expand-lg bg-primary navbar-primary">
 			<a class="navbar-brand" th:href="@{/}">
-				<img th:src="@{/images/biblioth.jpg}" width="80px" />
+				<img th:src="@{${SITE_LOGO}}" width="80px" />
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar, #searchNavbar"
 				style="background-color: white;">
@@ -75,7 +75,7 @@
 			</nav>
 		</div>
 		<div th:fragment="footer" class="text-center m-3">
-			<p>ENSPD Books Students - Copyright &copy; ENSPD Books</p>
+			<p>[[${COPYRIGHT}]]</p>
 		</div>
 	</div>
 </body>
