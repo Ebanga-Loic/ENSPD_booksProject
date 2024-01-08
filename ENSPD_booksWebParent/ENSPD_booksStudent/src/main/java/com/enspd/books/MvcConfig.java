@@ -1,4 +1,4 @@
-package com.enspd.books.admin;
+package com.enspd.books;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

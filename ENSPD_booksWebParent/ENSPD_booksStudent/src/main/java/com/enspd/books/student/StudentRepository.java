@@ -17,7 +17,7 @@ public interface StudentRepository extends CrudRepository<Student, Integer> {
 	@Query("SELECT c FROM Student c WHERE c.verificationCode = ?1")
 	public Student findByVerificationCode(String code);
 
-	@Query("UPDATE Student c SET c.enabled = true WHERE c.id = ?1")
+	@Query("UPDATE Student c SET c.enabled = true, c.verificationCode = null WHERE c.id = ?1")
 	@Modifying
 	public void enable(Integer id);
 }
