@@ -1,4 +1,4 @@
-package com.enspd.books.book;
+package com.enspd.books.article;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
