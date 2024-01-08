@@ -34,6 +34,12 @@ public class Student {
 	@Column(name = "phone_number", nullable = false, length = 15)
 	private String phoneNumber;
 
+	@Column(name = "niveau", nullable = false)
+	private int niveau;
+
+	@Column(name = "matricule", nullable = false, length = 15)
+	private String matricule;
+
 	@Column(name = "verification_code", length = 64)
 	private String verificationCode;
 
@@ -87,6 +93,22 @@ public class Student {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public int getNiveau() {
+		return niveau;
+	}
+
+	public void setNiveau(int niveau) {
+		this.niveau = niveau;
+	}
+
+	public String getMatricule() {
+		return matricule;
+	}
+
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
 	}
 
 	public String getPhoneNumber() {

@@ -11,6 +11,9 @@ public interface StudentRepository extends CrudRepository<Student, Integer> {
 	@Query("SELECT c FROM Student c WHERE c.email = ?1")
 	public Student findByEmail(String email);
 
+	@Query("SELECT c FROM Student c WHERE c.matricule = ?1")
+	public Student findByMatricule(String matricule);
+
 	@Query("SELECT c FROM Student c WHERE c.verificationCode = ?1")
 	public Student findByVerificationCode(String code);
 
