@@ -115,6 +115,15 @@ public class StudentRepositoryTests {
 		assertThat(student).isNotNull();
 		System.out.println(student);
 	}
+	
+	@Test
+	public void testFindByMatricule() {
+		String matricule = "123456";
+		Student student = repo.findByMatricule(matricule);
+
+		assertThat(student).isNotNull();
+		System.out.println(student);
+	}
 
 	@Test
 	public void testFindByVerificationCode() {
