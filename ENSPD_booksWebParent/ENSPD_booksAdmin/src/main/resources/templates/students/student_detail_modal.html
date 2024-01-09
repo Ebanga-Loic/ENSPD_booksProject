@@ -1,0 +1,93 @@
+<div class="modal-header">
+	<h4 class="modal-title">Details Etudiant</h4>
+	<button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<div>
+
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab"
+				aria-controls="general" aria-selected="true">General</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address"
+				aria-selected="false">Infos</a>
+		</li>
+	</ul>
+
+	<div class="tab-content" id="myTabContent">
+		<div class="tab-pane fade show active p-3" id="general" role="tabpanel" aria-labelledby="general-tab">
+			<div class="form-group row">
+				<label for="id" class="col-sm-4 col-form-label">Etudiant ID:</label>
+				<div class="col-sm-8">
+					<input type="text" readonly class="form-control" th:value="${student.id}" />
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="name" class="col-sm-4 col-form-label">Nom complet:</label>
+				<div class="col-sm-8">
+					<input type="text" readonly class="form-control" th:value="${student.fullName}" />
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="email" class="col-sm-4 col-form-label">E-mail:</label>
+				<div class="col-sm-8">
+					<input type="text" readonly class="form-control" th:value="${student.email}" />
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="phone" class="col-sm-4 col-form-label">Numéro téléphone:</label>
+				<div class="col-sm-8">
+					<input type="text" readonly class="form-control" th:value="${student.phoneNumber}" />
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="enabled" class="col-sm-4 col-form-label">Statut:</label>
+				<div class="col-sm-8">
+					<input type="checkbox" th:checked="${student.enabled}" disabled="disabled" />
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="createdTime" class="col-sm-4 col-form-label">Date Création:</label>
+				<div class="col-sm-8">
+					<span th:text="${#dates.format(student.createdTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab-pane fade show p-3" id="address" role="tabpanel" aria-labelledby="address-tab">
+
+			<div class="form-group row">
+				<label for="country" class="col-sm-4 col-form-label">Filiere:</label>
+				<div class="col-sm-8">
+					<input type="text" readonly class="form-control" th:value="${student.filieres.name}" />
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-4 col-form-label">Matricule:</label>
+				<div class="col-sm-8">
+					<input type="text" readonly th:value="${student.matricule}" class="form-control" />
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-4 col-form-label">Niveau d'étude:</label>
+				<div class="col-sm-8">
+					<input type="text" th:value="${student.niveau}" class="form-control" />
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+</div>
