@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: page_head('Students - ENSPD Books Admin', 'none')" />
+
+<body>
+	<div class="container-fluid">
+		<div th:replace="navigation :: menu"></div>
+		<div>
+			<h2>Gestion des Etudiants</h2>
+
+			<a th:href="@{/students/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
+		</div>
+
+		<div th:replace="fragments :: search_form_and_message('/students/page/1')" />
+
+		<div class="full-details">
+			<table class="table table-bordered table-striped table-hover table-responsive-xl">
+				<thead class="thead-dark">
+					<tr>
+						<th th:replace="fragments :: column_link('/students', 'id', 'ID', 'none')" />
+						<th th:replace="fragments :: column_link('/students', 'firstName', 'Prenom', 'none')" />
+						<th th:replace="fragments :: column_link('/students', 'lastName', 'Nom', 'none')" />
+
+						<th class="hideable-column">
+							<th th:replace="fragments :: column_link('/students', 'email', 'E-mail', 'tag')" />
+						</th>
+
+						<th th:replace="fragments :: column_link('/students', 'filieres', 'Filieres', 'none')" />
+						<th th:replace="fragments :: column_link('/students', 'enabled', 'Enabled', 'none')" />
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="student : ${listStudents}">
+						<td>[[${student.id}]]</td>
+						<td>[[${student.firstName}]]</td>
+						<td>[[${student.lastName}]]</td>
+						<td class="hideable-column">[[${student.email}]]</td>
+						<td>[[${student.filieres.name}]]</td>
+						<td>
+							<div
+								th:replace="fragments :: status(${student.enabled}, 'student', '/students/' + ${student.id})" />
+						</td>
+						<td>
+							<a class="fas fa-file-alt fa-2x icon-green link-detail"
+								th:href="@{'/students/detail/' + ${student.id}}"
+								title="Afficher les détails de cet étudiant"></a>
+							&nbsp;
+							<div th:replace="fragments :: edit('student', '/students/edit/' + ${student.id})" />
+							&nbsp;
+							<div
+								th:replace="fragments :: delete('student', ${student.id}, '/students/delete/' + ${student.id}, true)" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="less-details">
+			<div th:each="student : ${listStudents}" class="row m-1">
+				<div class="col-4">
+					<span><b>[[${student.fullName}]]</b></span>
+				</div>
+				<div class="col-8">
+					<div class="mb-1">
+						<span>[[${student.filieres.name}]]</span>
+					</div>
+					<div>
+						<div
+							th:replace="fragments :: status(${student.enabled}, 'student', '/students/' + ${student.id})" />
+						&nbsp;
+						<a class="fas fa-file-alt fa-2x icon-green link-detail"
+							th:href="@{'/students/detail/' + ${student.id}}"
+							title="Afficher les détails de cet étudiant"></a>
+						&nbsp;
+						<div th:replace="fragments :: edit('student', '/students/edit/' + ${student.id})" />
+						&nbsp;
+						<div
+							th:replace="fragments :: delete('student', ${student.id}, '/students/delete/' + ${student.id}, true)" />
+					</div>
+				</div>
+				<div>&nbsp;</div>
+			</div>
+		</div>
+
+		<div th:replace="fragments :: pagination('/students', 'students')"></div>
+
+		<div th:replace="modal_fragments :: confirm_modal" />
+
+		<div class="modal fade" id="detailModal">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+				</div>
+			</div>
+		</div>
+
+		<div th:replace="fragments :: footer"></div>
+
+	</div>
+	<script th:src="@{/js/common_list.js}"></script>
+	<script type="text/javascript">
+		moduleURL = "[[@{/students}]]";
+
+		$(document).ready(function () {
+			$(".link-delete").on("click", function (e) {
+				e.preventDefault();
+				showDeleteConfirmModal($(this), 'student');
+			});
+
+			$(".link-detail").on("click", function (e) {
+				e.preventDefault();
+				linkDetailURL = $(this).attr("href");
+				$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+			});
+		});
+	</script>
+</body>
+
+</html>

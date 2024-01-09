@@ -32,5 +32,7 @@ public interface FilieresRepository extends PagingAndSortingRepository<Filieres,
 
 	@Query("SELECT f FROM Filieres f WHERE CONCAT(f.id, ' ', f.name, ' '," + " f.alias) LIKE %?1%")
 	public Page<Filieres> findAll(String keyword, Pageable pageable);
+	
+	public List<Filieres> findAllByOrderByNameAsc();
 
 }
